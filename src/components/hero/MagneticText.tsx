@@ -8,7 +8,7 @@ import * as THREE from "three";
 // Configuration
 // ---------------------------------------------------------------------------
 
-const GRID_SPACING = 5; // px between particles — uniform grid
+const GRID_SPACING = 6; // px between particles — uniform grid
 const PARTICLE_SIZE = 0.04; // Three.js point size
 const TEXT = "RISHIDEEP\nMANDAVILLI";
 const REPEL_RADIUS = 0.4;
