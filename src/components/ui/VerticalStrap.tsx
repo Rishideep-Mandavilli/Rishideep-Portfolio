@@ -1,0 +1,140 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+
+type Item = { label: string; type: "name" | "sep" | "tag" | "status" };
+
+const ITEMS: Item[] = [
+  { label: "Rishideep Mandavilli", type: "name" as const },
+  { label: "◆", type: "sep" as const },
+  { label: "Portfolio Website", type: "name" as const },
+  { label: "◆", type: "sep" as const },
+  { label: "Developer", type: "tag" as const },
+  { label: "◆", type: "sep" as const },
+  { label: "AI & Automation", type: "tag" as const },
+  { label: "◆", type: "sep" as const },
+  { label: "Full-Stack Engineer", type: "tag" as const },
+  { label: "◆", type: "sep" as const },
+  { label: "Systems Thinker", type: "tag" as const },
+  { label: "◆", type: "sep" as const },
+  { label: "Available for Work", type: "status" as const },
+  { label: "◆", type: "sep" as const },
+];
+
+const ITEM_H = 220;
+const STRAP_W = 42;
+const VISIBLE_ITEMS = 4;
+const SCROLL_DURATION = 24;
+
+function VerticalStrap() {
+  const [paused, setPaused] = useState(false);
+  const [oneSetH, setOneSetH] = useState(0);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (innerRef.current) {
+        const children = innerRef.current.querySelectorAll("[data-item]");
+        const itemCount = children.length;
+        const oneSetCount = Math.floor(itemCount / 2);
+
+        if (oneSetCount > 0 && children[oneSetCount]) {
+          const h =
+            (children[oneSetCount] as HTMLElement).offsetTop -
+            (children[0] as HTMLElement).offsetTop;
+          setOneSetH(h);
+        }
+      }
+    }, 300);
+
+    return () => clearTimeout(id);
+  }, []);
+
+  return (
+    <div
+      className="fixed z-[9985] hidden pointer-events-none xl:block"
+      style={{
+        bottom: 36,
+        right: 86,
+        width: STRAP_W,
+        height: VISIBLE_ITEMS * ITEM_H + 8,
+      }}
+    >
+      <div
+        className="relative w-full h-full overflow-hidden rounded-full border border-cyan-400/80 bg-stone-900/85 shadow-[0_0_0_1px_rgba(255,255,255,0.04)_inset] cursor-default pointer-events-auto"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* Top Fade */}
+        <div className="absolute top-0 left-0 right-0 h-12 z-10 bg-stone-900 pointer-events-none" />
+
+        {/* Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 z-10 bg-stone-900 pointer-events-none" />
+
+        {/* Scroll */}
+        <div
+          ref={innerRef}
+          className="flex flex-col items-center py-1"
+          style={{
+            animationName: oneSetH > 0 ? "vScroll" : "none",
+            animationDuration: `${SCROLL_DURATION}s`,
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+            animationPlayState: paused ? "paused" : "running",
+          }}
+        >
+          {[...ITEMS, ...ITEMS].map((item, i) => (
+            <div
+              key={i}
+              data-item
+              className="flex items-center justify-center text-center flex-shrink-0"
+              style={{
+                height: ITEM_H,
+                width: STRAP_W,
+                padding: "0 6px",
+              }}
+            >
+              {item.type === "sep" ? (
+                <span className="vertical-text text-[8px] text-stone-400">
+                  {item.label}
+                </span>
+              ) : item.type === "name" ? (
+                <span className="vertical-text text-[11px] font-semibold text-stone-200">
+                  {item.label}
+                </span>
+              ) : item.type === "status" ? (
+                <span className="vertical-text text-[10px] font-semibold text-[#a4d3cc]">
+                  ● {item.label}
+                </span>
+              ) : item.type === "tag" ? (
+                <span className="vertical-text text-[10px] font-semibold text-stone-400">
+                  {item.label}
+                </span>
+              ) : (
+                <span className="vertical-text text-[10px] text-stone-500">
+                  {item.label}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Animations + Vertical Text */}
+      <style>{`
+        @keyframes vScroll {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(${oneSetH > 0 ? `-${oneSetH}px` : "-400px"}); }
+        }
+
+        .vertical-text {
+          writing-mode: vertical-rl;
+          text-orientation: mixed;
+          line-height: 1;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+export { VerticalStrap };
