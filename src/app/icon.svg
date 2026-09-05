@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#050505"/>
+
+  <!-- fallback frame / border -->
+  <rect x="12" y="12" width="40" height="40" rx="10" fill="#0d0c0a" stroke="#a4d3cc" stroke-width="2"/>
+
+  <defs>
+    <clipPath id="avatarClip">
+      <rect x="12" y="12" width="40" height="40" rx="10" />
+    </clipPath>
+  </defs>
+
+  <!-- User image placeholder: drop your image at /public/profile.png -->
+  <image href="/profile.png" x="12" y="12" width="40" height="40" clip-path="url(#avatarClip)" preserveAspectRatio="xMidYMid slice" />
+
+  <!-- visual fallback (eyes + mouth) shown if image is not available -->
+  <g fill="#dfe7e2" stroke="none">
+    <circle cx="24" cy="31" r="4" />
+    <circle cx="40" cy="31" r="4" />
+  </g>
+  <rect x="22" y="43" width="20" height="2" rx="1" fill="#d6ae7c"/>
+</svg>

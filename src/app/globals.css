@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   THEME — "phosphor instrument"
+   Cool ink base, one disciplined signal color, real type system.
+   All components consume these tokens; no hardcoded hexes downstream.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Surfaces */
+  --color-ink: #0a0b0e;
+  --color-panel: #0f1218;
+  --color-raised: #151a23;
+  --color-well: #080a0d;
+
+  /* Lines */
+  --color-line: #232936;
+  --color-line-strong: #353d4d;
+
+  /* Text tiers — all AA on ink */
+  --color-paper: #f2f4ec;
+  --color-mist: #c6ccd4;
+  --color-dim: #9aa2af;
+  --color-faint: #6b7382;
+
+  /* Signal */
+  --color-signal: #c8f550;
+
+  /* Type */
+  --font-display: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-terminal: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+  scroll-padding-top: 76px;
+}
+
+body {
+  position: relative;
+  background-color: var(--color-ink);
+  color: var(--color-mist);
+  overflow-x: hidden;
+  font-family: var(--font-display);
+
+  /* Blueprint grid + one quiet glow — no beams, no noise salad */
+  background-image:
+    radial-gradient(ellipse 60% 42% at 68% -6%, rgba(200, 245, 80, 0.055), transparent 70%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-repeat: no-repeat, repeat, repeat;
+  background-size: auto, 56px 56px, 56px 56px;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: #0a0b0e;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Thin dark scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-well);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border: 3px solid var(--color-well);
+  border-radius: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+-------------------------------------------------------------------------- */
+
+.noise-surface {
+  position: relative;
+}
+
+.noise-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.noise-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.section-shell {
+  width: min(1180px, calc(100vw - 28px));
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .section-shell {
+    width: min(1180px, calc(100vw - 48px));
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    background-size: auto, 36px 36px, 36px 36px;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Custom cursor — native arrow replaced by the signal diamond */
+@media (pointer: fine) {
+  html.custom-cursor,
+  html.custom-cursor * {
+    cursor: none !important;
+  }
+
+  html.custom-cursor input,
+  html.custom-cursor textarea {
+    cursor: text !important;
+  }
+}
+
+/* Ticker marquee */
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Node card — living panel with internal drifting aurora */
+.node-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #181f2b, #121722);
+  isolation: isolate;
+}
+
+.node-card::before {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(200, 245, 80, 0.09),
+    transparent 72%
+  );
+  animation: card-drift 11s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+  will-change: transform;
+}
+
+.node-card:hover::before,
+.node-card:focus-within::before {
+  opacity: 1;
+  background: radial-gradient(
+    closest-side,
+    rgba(200, 245, 80, 0.16),
+    transparent 72%
+  );
+}
+
+@keyframes card-drift {
+  from {
+    transform: translate(-14%, -12%) scale(1);
+  }
+  to {
+    transform: translate(12%, 14%) scale(1.18);
+  }
+}
+
+/* Canvas ambience — two slow hazes drifting behind the graph */
+.haze {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.haze-a {
+  width: 46%;
+  height: 60%;
+  left: -8%;
+  top: -12%;
+  background: rgba(200, 245, 80, 0.055);
+  animation: haze-a 26s ease-in-out infinite alternate;
+}
+
+.haze-b {
+  width: 40%;
+  height: 55%;
+  right: -6%;
+  bottom: -14%;
+  background: rgba(120, 140, 190, 0.06);
+  animation: haze-b 32s ease-in-out infinite alternate;
+}
+
+@keyframes haze-a {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(38%, 26%) scale(1.15);
+  }
+}
+
+@keyframes haze-b {
+  from {
+    transform: translate(0, 0) scale(1.1);
+  }
+  to {
+    transform: translate(-30%, -22%) scale(0.95);
+  }
+}
+
+/* Probe orbit ring */
+.orbit-ring {
+  animation: orbit 16s linear infinite;
+}
+
+.group:hover .orbit-ring {
+  animation-duration: 6s;
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Print — the résumé route prints to a clean ATS-friendly sheet */
+@media print {
+  body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #111111 !important;
+  }
+
+  canvas,
+  .fixed,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    z-index: auto !important;
+  }
+
+  .resume-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+  }
+
+  .resume-sheet h1 {
+    color: #000000 !important;
+  }
+
+  .resume-sheet .rs-label,
+  .resume-sheet li span.bg-signal {
+    color: #1a1a1a !important;
+    background: #1a1a1a !important;
+    box-shadow: none !important;
+  }
+
+  .resume-sheet .rs-body,
+  .resume-sheet p,
+  .resume-sheet li,
+  .resume-sheet dd,
+  .resume-sheet dt {
+    color: #222222 !important;
+  }
+}
+
+/* Section eyebrow — instrument tag */
+.technical-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-line-strong);
+  background: color-mix(in srgb, var(--color-panel) 88%, transparent);
+  color: var(--color-signal);
+  font-family: var(--font-terminal);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  max-width: 100%;
+}
+
+.technical-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--color-signal);
+  box-shadow: 0 0 10px rgba(200, 245, 80, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

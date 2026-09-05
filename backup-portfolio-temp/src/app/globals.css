@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --color-background: #000000;
+  --color-foreground: #e7e5e4;
+  --color-muted: #78716c;
+  --color-border: #292524;
+}
+
+/* BLACK GRID BACKGROUND */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  overflow-x: hidden;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
