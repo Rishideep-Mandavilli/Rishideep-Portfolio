@@ -1,10 +1,11 @@
 const ITEMS = [
-  "AI interfaces",
-  "computer vision",
-  "automation logic",
+  "on-device speech",
+  "retrieval pipelines",
+  "full-stack products",
+  "native macOS & Android",
   "interactive frontend",
-  "system design",
-  "LLM workflows",
+  "design systems",
+  "measured latency",
 ];
 
 export function Ticker() {

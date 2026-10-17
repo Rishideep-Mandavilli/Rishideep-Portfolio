@@ -14,7 +14,7 @@ export function ConsoleSignature() {
     console.log(
       `%c◆%c
 rishi@portfolio:~$ whoami
-%c  mandavilli raju rishi deep — ai systems / full-stack / computer vision
+%c  mandavilli raju rishi deep — ai products / full-stack / ui-ux design
   status .......... open for selected builds
   résumé .......... ${window.location.origin}/resume
   github .......... github.com/Rishideep-Mandavilli

@@ -14,49 +14,67 @@ type Skill = {
 
 const SKILLS: Skill[] = [
   {
-    id: "vision",
-    title: "Computer Vision",
-    field: "Perception layer",
+    id: "ondevice",
+    title: "On-device AI",
+    field: "Speech & vision layer",
     summary:
-      "Face recognition, frame processing, and camera-led workflows that turn visual input into useful system state.",
-    stack: ["OpenCV", "DeepFace", "Python"],
-    proof: ["Attendance recognition prototype", "Image preprocessing", "Identity verification flow"],
+      "Transcription, synthesis and generation that run on the handset or the laptop — quantised models, VAD gating, and a local model gateway instead of a per-call API bill.",
+    stack: ["whisper.cpp", "sherpa-onnx", "Piper", "Ollama", "Kokoro"],
+    proof: ["Memora voice pipeline", "iTantra offline STT/TTS", "Chunks local voice I/O"],
   },
   {
-    id: "ai",
-    title: "AI Interfaces",
-    field: "Reasoning layer",
+    id: "retrieval",
+    title: "Retrieval & RAG",
+    field: "Knowledge layer",
     summary:
-      "LLM-powered interactions shaped around intent, tool output, user review, and recoverable states.",
-    stack: ["LLM APIs", "Prompt design", "Node.js"],
-    proof: ["Assistant workflow model", "API response handling", "Action-oriented UI"],
+      "Embedding pipelines and local search that stay fast and cheap — vectors generated on-device through a local gateway, so a query does not carry a per-call API cost.",
+    stack: ["pgvector", "Drizzle", "BullMQ", "Qwen3-Embedding"],
+    proof: ["Memora embedding retrieval", "Slide-Board keyword index"],
+  },
+  {
+    id: "fullstack",
+    title: "Full-stack Product",
+    field: "Systems layer",
+    summary:
+      "Product surfaces that ship and keep working: Next.js frontends, typed APIs, job queues, object storage, and deployment wired into git so releasing is routine.",
+    stack: ["Next.js", "Hono", "FastAPI", "PostgreSQL", "Vercel"],
+    proof: ["CrossStack platform, live", "Memora API and schema"],
   },
   {
     id: "frontend",
     title: "Interactive Frontend",
     field: "Experience layer",
     summary:
-      "High-control React interfaces with motion, canvas, and 3D used to communicate how a system behaves.",
-    stack: ["Next.js", "React", "Three.js", "Framer Motion"],
-    proof: ["Particle nameplate", "Case-file interface", "Responsive rebuild"],
+      "High-control React interfaces where motion, canvas and 3D carry meaning — readable state, transitions that explain what just happened, and no decorative noise.",
+    stack: ["React", "TypeScript", "Three.js", "Framer Motion", "Radix UI"],
+    proof: ["Slide-Board canvas engine", "Split-view layout tree", "This portfolio"],
   },
   {
-    id: "automation",
-    title: "Automation Logic",
-    field: "Workflow layer",
+    id: "native",
+    title: "Native & Platform",
+    field: "Hardware layer",
     summary:
-      "Process design for replacing repetitive manual steps with clear, observable software flows.",
-    stack: ["Python", "APIs", "Data records"],
-    proof: ["Attendance logging", "Command-style exploration", "Stateful task flow"],
+      "Swift, Kotlin and Electron work for the moments a browser cannot reach the hardware: screen capture, Bluetooth, WiFi Direct, OS credential storage.",
+    stack: ["Swift 6", "Kotlin", "Flutter", "Electron", "ScreenCaptureKit"],
+    proof: ["Chunks menu-bar app", "iTantra radio plugins", "SurfIn packaged desktop app"],
   },
   {
-    id: "systems",
-    title: "System Design",
-    field: "Architecture layer",
+    id: "design",
+    title: "UI/UX & Design Systems",
+    field: "Design layer",
     summary:
-      "Breaking vague product ideas into states, inputs, outputs, constraints, and interfaces people can trust.",
-    stack: ["TypeScript", "Data modeling", "UI architecture"],
-    proof: ["Section architecture", "Case-study schema", "Interaction states"],
+      "Interface decisions made as systems — tokens, components, wireframes and brand rules that survive handoff, plus the pitch and visual work around a product.",
+    stack: ["Figma", "Design systems", "Wireframing", "Brand identity"],
+    proof: ["VoidLabs product design", "Client pitch decks"],
+  },
+  {
+    id: "evaluation",
+    title: "Evaluation & Measurement",
+    field: "Validation layer",
+    summary:
+      "If a claim is on the screen, a harness sits behind it: error-rate scoring, per-step latency logs, contract tests, and documentation that lists what is not finished.",
+    stack: ["WER scoring", "Latency / RTF logging", "Vitest", "XCTest"],
+    proof: ["iTantra WER + latency HUD", "Chunks 21 test files", "Slide-Board test chain"],
   },
 ];
 

@@ -1,10 +1,14 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import { Canvas } from "@react-three/fiber";
-import { ParticleGrid, AutoCamera } from "./MagneticText";
+import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { MaskReveal } from "./MaskReveal";
+import { StaticNameplate } from "./StaticNameplate";
 import { TimeGreeting } from "@/components/ui/TimeGreeting";
+
+// Loaded only when a pointer can actually disturb the field, so phones never
+// pay for three.js.
+const FieldCanvas = dynamic(() => import("./FieldCanvas"), { ssr: false });
 
 interface HeroProps {
   skillsRef: React.RefObject<HTMLElement | null>;
@@ -13,6 +17,14 @@ interface HeroProps {
 }
 
 function Hero({ skillsRef, projectsRef, contactRef }: HeroProps) {
+  const [fieldEnabled, setFieldEnabled] = useState(false);
+
+  useEffect(() => {
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setFieldEnabled(fine && !reduced);
+  }, []);
+
   const scrollTo = useCallback(
     (ref: React.RefObject<HTMLElement | null>) => {
       ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -31,21 +43,22 @@ function Hero({ skillsRef, projectsRef, contactRef }: HeroProps) {
             Available for selected builds
           </span>
           <span className="ml-auto hidden font-terminal text-[11px] uppercase tracking-widest text-faint md:block">
-            portfolio / ai systems / inspectable interfaces
+            portfolio / ai products / full-stack / design systems
           </span>
         </div>
 
         <h1 className="max-w-[14ch] text-[clamp(3rem,9.5vw,7.75rem)] font-semibold leading-[0.94] tracking-tighter text-paper">
-          I build AI systems you can{" "}
+          I build AI products you can{" "}
           <span className="text-signal">inspect</span>.
         </h1>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <div className="flex flex-col justify-between gap-10">
             <p className="max-w-md text-lg leading-8 text-mist">
-              Interfaces for automation, computer vision, and assistant
-              workflows where the logic is not hidden behind a black box. Every
-              section is built as something you can test, trace, or route.
+              Voice, speech and retrieval systems that run on real devices —
+              plus the full-stack surfaces and design systems that make them
+              usable. Nothing hides behind a black box: measured latency,
+              readable state, and an honest list of what is not finished.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -79,22 +92,16 @@ function Hero({ skillsRef, projectsRef, contactRef }: HeroProps) {
           <div className="border border-line bg-panel p-3 shadow-[0_24px_100px_rgba(0,0,0,0.48)]">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3 font-terminal text-[11px] uppercase tracking-wider">
               <span className="text-signal">identity renderer</span>
-              <span className="text-faint">pointer field enabled</span>
+              <span className="text-faint">
+                {fieldEnabled ? "pointer field enabled" : "pointer field static"}
+              </span>
             </div>
-            <div className="noise-surface relative h-[min(58vw,300px)] min-h-[220px] overflow-hidden border border-line bg-well md:h-[360px]">
-              <Canvas
-                camera={{ position: [0, 0, 3.5], fov: 50 }}
-                style={{ width: "100%", height: "100%" }}
-                dpr={[1, 1.5]}
-                gl={{ antialias: true }}
-              >
-                <AutoCamera />
-                <ParticleGrid />
-              </Canvas>
-            </div>
+            {fieldEnabled ? <FieldCanvas /> : <StaticNameplate />}
             <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
               <span className="font-terminal text-[11px] uppercase tracking-wider text-faint">
-                move cursor to disturb the name field
+                {fieldEnabled
+                  ? "move cursor to disturb the name field"
+                  : "name field · reduced motion respected"}
               </span>
               <MaskReveal compact src="/Rishideep-Mandavilli.jpg" />
             </div>
@@ -103,10 +110,10 @@ function Hero({ skillsRef, projectsRef, contactRef }: HeroProps) {
 
         <div className="mt-14 grid grid-cols-2 gap-y-4 border-t border-line py-6 md:grid-cols-4">
           {[
-            ["03", "case studies"],
-            ["05", "system nodes"],
-            ["397kB", "current JS"],
-            ["1M", "context tokens"],
+            ["06", "case files"],
+            ["04", "platforms shipped"],
+            ["100+", "devs on CrossStack"],
+            ["9.31", "CGPA · CSE 2029"],
           ].map(([value, label]) => (
             <div key={label} className="pr-4">
               <div className="font-terminal text-xl text-paper">{value}</div>

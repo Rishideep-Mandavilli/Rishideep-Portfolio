@@ -59,16 +59,16 @@ function AboutPanel({
                     className="block text-[clamp(1.8rem,9vw,3rem)] font-semibold leading-tight text-paper drop-shadow-[0_0_24px_rgba(200,245,80,0.12)]"
                   />
                   <p className="mt-5 max-w-xl text-sm leading-7 text-dim md:text-base">
-                    Developer focused on AI interfaces, automation systems,
-                    computer vision workflows, and full-stack products that make
-                    complex logic visible enough for people to trust.
+                    Developer focused on AI products that run on real devices —
+                    voice, speech and retrieval — plus the full-stack surfaces
+                    and design systems that make them usable enough to trust.
                   </p>
 
                   <div className="mt-7 grid gap-3 sm:grid-cols-3">
                     {[
-                      ["Builds", "working prototypes"],
-                      ["Thinks in", "systems and states"],
-                      ["Currently", "available selectively"],
+                      ["Builds", "products, not demos"],
+                      ["Works at", "VoidLabs · CrossStack"],
+                      ["Currently", "open to selected builds"],
                     ].map(([label, value]) => (
                       <div key={label} className="border border-line bg-panel/60 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
                         <div className="font-terminal text-[10px] uppercase text-faint">{label}</div>
@@ -76,17 +76,25 @@ function AboutPanel({
                       </div>
                     ))}
                   </div>
+
+                  <a
+                    href="/about"
+                    className="mt-7 inline-flex items-center gap-2 border border-line-strong px-4 py-2 font-terminal text-[11px] uppercase tracking-wider text-mist transition-colors hover:border-[#c8f550] hover:text-[#c8f550]"
+                  >
+                    full profile <span aria-hidden>↗</span>
+                  </a>
                 </div>
 
                 <div className="border-t border-line bg-well/40 p-5 sm:p-6 md:border-l md:border-t-0">
                   <div className="font-terminal text-xs uppercase text-faint">Operating modes</div>
                   <div className="mt-4 grid gap-2">
                     {[
-                      "AI workflow design",
-                      "Computer vision prototypes",
-                      "Interactive frontend systems",
-                      "Automation logic",
-                      "Product-quality polish",
+                      "On-device voice & vision systems",
+                      "Retrieval and RAG pipelines",
+                      "Full-stack product engineering",
+                      "Native macOS, Android & desktop",
+                      "UI/UX and design systems",
+                      "Evaluation & measurement",
                     ].map((mode) => (
                       <div key={mode} className="border-l border-[#c8f550] bg-raised px-3 py-2 text-sm text-mist shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
                         {mode}

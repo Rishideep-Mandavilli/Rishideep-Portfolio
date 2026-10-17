@@ -12,7 +12,7 @@ interface CNode {
   label: string;
   desc: string;
   icon: React.ReactNode;
-  action: () => void;
+  url: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -21,18 +21,8 @@ interface CNode {
 
 const DATA: CNode[] = [
   {
-    id: "mail", label: "Email", desc: "Send a direct message",
-    action: () => (window.location.href = "mailto:rishideep.edu@gmail.com"),
-    icon: (
-      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="M22 4L12 13 2 4" />
-      </svg>
-    ),
-  },
-  {
     id: "github", label: "GitHub", desc: "View repositories",
-    action: () => window.open("https://github.com/Rishideep-Mandavilli", "_blank"),
+    url: "https://github.com/Rishideep-Mandavilli",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
@@ -41,7 +31,7 @@ const DATA: CNode[] = [
   },
   {
     id: "linkedin", label: "LinkedIn", desc: "Connect professionally",
-    action: () => window.open("https://linkedin.com/in/rishideepmandavilli", "_blank"),
+    url: "https://linkedin.com/in/rishideep-mandavilli",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -49,8 +39,17 @@ const DATA: CNode[] = [
     ),
   },
   {
+    id: "youtube", label: "YouTube", desc: "Teja Visual Arts · edits & AI films",
+    url: "https://www.youtube.com/@Teja_Visual_Arts",
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z" />
+      </svg>
+    ),
+  },
+  {
     id: "instagram", label: "Instagram", desc: "Follow visual updates",
-    action: () => window.open("https://instagram.com/rishideep.mandavilli", "_blank"),
+    url: "https://instagram.com/rishideep.mandavilli",
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -61,7 +60,7 @@ const DATA: CNode[] = [
   },
   {
     id: "x", label: "X (Twitter)", desc: "Follow my thoughts",
-    action: () => window.open("https://x.com/RishideepM15", "_blank"),
+    url: "https://x.com/RishideepM15",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -181,30 +180,27 @@ export function Contact() {
     setNearId(nearest(e.clientX - r.left, e.clientY - r.top));
   }, [dragging, nearest]);
 
+  const markConnected = useCallback((id: string) => {
+    setConnected((p) => new Set(p).add(id));
+    setPulseId(id);
+    setTimeout(() => setPulseId(null), 500);
+  }, []);
+
+  // Drag-release and edge clicks are gestures, not link activations — open
+  // programmatically so the bezier routing still resolves to the destination.
+  const openNode = useCallback((id: string) => {
+    const node = DATA.find((n) => n.id === id);
+    if (!node) return;
+    window.open(node.url, "_blank", "noopener,noreferrer");
+    markConnected(id);
+  }, [markConnected]);
+
   const onUp = useCallback(() => {
     if (!dragging) return;
     setDragging(false);
-    if (nearId) {
-      const node = DATA.find((n) => n.id === nearId);
-      if (node) {
-        node.action();
-        setConnected((p) => new Set(p).add(nearId));
-        setPulseId(nearId);
-        setTimeout(() => setPulseId(null), 500);
-      }
-    }
+    if (nearId) openNode(nearId);
     setNearId(null);
-  }, [dragging, nearId]);
-
-  const onNodeClick = useCallback((id: string) => {
-    const node = DATA.find((n) => n.id === id);
-    if (node) {
-      node.action();
-      setConnected((p) => new Set(p).add(id));
-      setPulseId(id);
-      setTimeout(() => setPulseId(null), 500);
-    }
-  }, []);
+  }, [dragging, nearId, openNode]);
 
   return (
     <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:px-10 md:py-32 lg:px-14">
@@ -222,9 +218,12 @@ export function Contact() {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:hidden">
         {DATA.map((node) => (
-          <button
+          <a
             key={node.id}
-            onClick={node.action}
+            href={node.url}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => markConnected(node.id)}
             className="flex min-h-20 items-center gap-4 border border-line bg-panel/75 p-4 text-left transition-colors hover:border-line-strong active:border-signal"
           >
             <span className="grid h-10 w-10 place-items-center border border-line bg-raised text-dim">
@@ -234,8 +233,8 @@ export function Contact() {
               <span className="block font-semibold text-paper">{node.label}</span>
               <span className="block text-sm leading-5 text-faint">{node.desc}</span>
             </span>
-            <span className="font-terminal text-faint">/</span>
-          </button>
+            <span aria-hidden className="font-terminal text-faint">/</span>
+          </a>
         ))}
       </div>
 
@@ -300,7 +299,7 @@ export function Contact() {
                   animate={{ pathLength: 1, opacity: 1 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   style={{ pointerEvents: "auto", cursor: "pointer" }}
-                  onClick={() => onNodeClick(id)}
+                  onClick={() => openNode(id)}
                 />
                 {/* Flow dots */}
                 <g>
@@ -317,7 +316,7 @@ export function Contact() {
             const target = nearIdx >= 0 ? { x: nx - CW / 2, y: startY + nearIdx * spacing } : null;
             const tx = target ? target.x : mx;
             const ty = target ? target.y : my;
-            const snapColor = nearId ? SIGNAL : "#6b7382";
+            const snapColor = nearId ? SIGNAL : "#848c9b";
             return (
               <>
                 <path
@@ -389,15 +388,19 @@ export function Contact() {
           const pulsing = pulseId === node.id;
 
           return (
-            <motion.div
+            <motion.a
               key={node.id}
-              className="absolute select-none"
+              href={node.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${node.label} — ${node.desc}`}
+              className="absolute block select-none"
               style={{ left: nx - CW / 2, top: py - CH / 2, width: CW, height: CH, zIndex: near ? 20 : 10, cursor: "pointer" }}
               animate={{ scale: near ? 1.04 : pulsing ? 1.02 : hovered ? 1.015 : 1, y: near ? -2 : 0 }}
               transition={{ type: "spring", stiffness: 400, damping: 28 }}
               onPointerEnter={() => setHoveredId(node.id)}
               onPointerLeave={() => setHoveredId(null)}
-              onClick={() => onNodeClick(node.id)}
+              onClick={() => markConnected(node.id)}
             >
               {/* Card */}
               <div
@@ -456,7 +459,7 @@ export function Contact() {
               >
                 <div className="absolute inset-1.5 rounded-full" style={{ backgroundColor: near || active ? SIGNAL : "#9aa2af" }} />
               </div>
-            </motion.div>
+            </motion.a>
           );
         })}
 
@@ -482,10 +485,10 @@ export function Contact() {
           <div>
             <div className="font-terminal text-[11px] uppercase tracking-widest text-faint">Direct channel · no routing required</div>
             <a
-              href="mailto:rishideep.edu@gmail.com"
+              href="mailto:rishideep.mandavilli@gmail.com"
               className="group mt-1 inline-flex items-baseline gap-3 text-xl font-semibold tracking-tight text-paper transition-colors hover:text-signal sm:text-2xl"
             >
-              rishideep.edu@gmail.com
+              rishideep.mandavilli@gmail.com
               <span className="font-terminal text-base transition-transform group-hover:translate-x-1">→</span>
             </a>
           </div>

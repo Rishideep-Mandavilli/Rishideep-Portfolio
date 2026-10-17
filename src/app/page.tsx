@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 import { Hero } from "@/components/hero/hero";
 import { SkillsConsole } from "@/components/skills/Skills-any";
@@ -23,10 +23,6 @@ export default function Home() {
   }, []);
 
   const scrollTo = (href: string) => {
-    if (href === "#about") {
-      setBotOpen(true);
-      return;
-    }
     if (href === "#hero") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -36,7 +32,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col">
+    <main id="main" className="flex flex-col">
       <Header scrollTo={scrollTo} />
       <SideRail />
 
@@ -72,6 +68,10 @@ export default function Home() {
         <div className="section-shell flex flex-col items-start justify-between gap-3 py-6 font-terminal text-xs text-faint sm:flex-row sm:items-center lg:pl-16">
           <span>
             © 2026 Rishideep Mandavilli ·{" "}
+            <a href="/about" className="text-dim transition-colors hover:text-signal">
+              about ↗
+            </a>{" "}
+            ·{" "}
             <a href="/resume" className="text-dim transition-colors hover:text-signal">
               résumé ↗
             </a>
@@ -95,6 +95,7 @@ export default function Home() {
 
 function SectionReveal({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -103,6 +104,8 @@ function SectionReveal({ children }: { children: React.ReactNode }) {
 
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const y = useTransform(scrollYProgress, [0, 1], [30, 0]);
+
+  if (reducedMotion) return <div ref={ref}>{children}</div>;
 
   return (
     <motion.div ref={ref} style={{ opacity, y }}>

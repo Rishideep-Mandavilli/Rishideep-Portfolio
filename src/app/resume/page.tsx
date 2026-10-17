@@ -1,82 +1,115 @@
 "use client";
 
 const CONTACTS = [
-  ["location", "Visakhapatnam, India"],
+  ["location", "Visakhapatnam, Andhra Pradesh, India"],
   ["phone", "+91 91339 51588"],
-  ["email", "rishideep.edu@gmail.com"],
+  ["email", "rishideep.mandavilli@gmail.com"],
   ["github", "github.com/Rishideep-Mandavilli"],
-  ["linkedin", "linkedin.com/in/rishideepmandavilli"],
-  ["web", "rishideep-portfolio.vercel.app"],
+  ["linkedin", "linkedin.com/in/rishideep-mandavilli"],
+  ["youtube", "youtube.com/@Teja_Visual_Arts"],
+  ["web", "rishideep-m.vercel.app"],
 ];
 
 const SKILLS: [string, string][] = [
-  ["languages", "Python · C · JavaScript · TypeScript"],
+  ["languages", "Python · C · Java · JavaScript · TypeScript"],
   [
     "frontend",
-    "React · Next.js · HTML/CSS · Tailwind · Framer Motion · Three.js",
+    "React · Next.js · HTML/CSS · Tailwind · Framer Motion · Three.js · REST APIs",
   ],
   [
-    "ai & vision",
-    "Prompt Engineering · LLM APIs · OpenCV · DeepFace · AI video & audio generation",
+    "ui/ux & design",
+    "Figma · Wireframing · UI Prototyping · Design Systems · Pitch Deck Design · Brand Identity",
   ],
-  ["workflow", "Git & GitHub · Vercel · Netlify · AWS (basics) · Firebase (familiar)"],
-  ["creative", "Brand identity · Pitch decks · Visual storytelling"],
-  ["video", "CapCut · DaVinci Resolve · reels · ads · event recaps"],
+  [
+    "ai & media",
+    "Prompt Engineering · LLM APIs · Generative video & audio · DaVinci Resolve · CapCut",
+  ],
+  [
+    "workflow & cloud",
+    "Git & GitHub · Vercel · Netlify · AWS · Firebase · Claude Code and other agent harnesses",
+  ],
 ];
 
 const EXPERIENCE = [
   {
-    role: "Full Stack Developer — Technical Team",
-    org: "CrossStack · Visakhapatnam developer community (100+ members)",
-    period: "2024 — Present",
+    role: "UI/UX Designer & Frontend Lead",
+    org: "VoidLabs · voidlabs.in",
+    period: "2026 — Present",
     points: [
-      "Engineered and shipped crossstack.in — a production marketing and event-management platform, as a live client deliverable.",
-      "Built responsive interfaces with React/Next.js: event listings, registration flow, and conversion-focused sections.",
-      "Own iteration from design feedback through deployment on Vercel; maintain cross-browser and mobile behavior.",
+      "Lead UI/UX design and frontend architecture for the company's products and its web platform (voidlabs.in) — layouts, wireframes, and responsive web applications.",
+      "Own frontend development for performance, accessibility, and cross-browser responsiveness across shipped surfaces.",
+      "Work with cross-functional teammates to keep the digital design system aligned with product and business objectives.",
+    ],
+  },
+  {
+    role: "Full Stack Developer & Technical Team Member",
+    org: "CrossStack · Visakhapatnam developer community (100+ active members)",
+    period: "2025 — Present",
+    points: [
+      "Engineered and launched crossstack.in — a production marketing and event-management platform for a 100+ member regional developer community.",
+      "Built modular, responsive UI components with React, Next.js, HTML, CSS, and JavaScript for event listings, registration workflows, and member portals.",
+      "Manage version control (Git/GitHub) and continuous deployment pipelines on Vercel and Netlify.",
     ],
   },
   {
     role: "Operations Lead",
     org: "CrossStack Buildathon",
-    period: "2024 — 2025",
+    period: "2025 — 2026",
     points: [
-      "Ran an offline buildathon end-to-end: participant coordination, logistics, and scheduling.",
-      "Designed and executed the complete online evaluation and judging workflow.",
+      "Directed operations, logistics, scheduling, and participant management for an offline developer buildathon.",
+      "Architected and executed the end-to-end digital judging and online evaluation system.",
     ],
   },
   {
-    role: "Graphic Designer & Brand Strategist",
+    role: "Brand Strategist & Graphic Designer",
     org: "Freelance",
     period: "2024 — Present",
     points: [
-      "Delivered pitch decks and brand identities for one established business and two startup ideas — logos, presentations, marketing visuals.",
+      "Created brand identities, investor pitch decks, and visual assets for one established business and two early-stage startups.",
+      "Built cohesive presentation visuals and marketing collateral shaped for stakeholder engagement.",
     ],
   },
   {
-    role: "Founder & Content Creator",
+    role: "Video Producer & Digital Media Creator",
     org: "Teja Visual Arts · YouTube",
-    period: "2019 — Present",
+    period: "2020 — Present",
     points: [
-      "6+ years of video editing; produce reels, promotional ads, event recaps, and AI-generated video and song content.",
+      "6+ years of video editing and multimedia production: high-impact video content, promotional reels, and brand recaps.",
+      "Integrated generative AI video, audio, and prompt-engineering workflows with CapCut, DaVinci Resolve, and modern AI media tools.",
     ],
   },
 ];
 
 const PROJECTS = [
   {
-    name: "Vision Attendance System",
-    stack: "Python · OpenCV · DeepFace",
-    desc: "Face-recognition check-in replacing manual attendance — identity matching, audit trail, camera-led workflow in one tool.",
+    name: "Memora",
+    stack: "React Native · FastAPI · whisper.cpp · Ollama",
+    desc: "Voice-notes app that transcribes meetings and classes in English, Telugu or code-switched speech, then produces notes, titles, reminders and PDF/Word exports through a local model gateway.",
   },
   {
-    name: "Realtime AI Assistant",
-    stack: "LLM APIs · React · Node.js",
-    desc: "Assistant interface treating model output as actions with state — visible progress, recoverable states, human review.",
+    name: "iTantra",
+    stack: "Flutter · Kotlin · sherpa-onnx · Piper",
+    desc: "Offline disaster walkie-talkie: on-device Whisper STT, AES-256 text relay over WiFi Direct and Bluetooth, on-device TTS, with word-error-rate and per-utterance latency instrumentation.",
   },
   {
-    name: "Portfolio Engine",
-    stack: "Next.js · Three.js · Framer Motion",
-    desc: "Inspectable operating-layer portfolio: particle identity renderer, case-terminal exploration, node-based contact routing.",
+    name: "Slide-Board",
+    stack: "Next.js · React 19 · Python · Prisma",
+    desc: "Infinite presentation canvas where a local speech matcher puts the right element on stage as you talk — .pptx import to editable layers, plus a post-talk story export with dwell times.",
+  },
+  {
+    name: "Chunks",
+    stack: "Swift 6 · ScreenCaptureKit · Kokoro",
+    desc: "macOS menu-bar companion that reads the screen on a held key and answers by voice, using on-device speech in and out and a user-owned plain-text memory file.",
+  },
+  {
+    name: "CrossStack Platform",
+    stack: "Next.js · TypeScript · Vercel",
+    desc: "Live marketing and event-management platform for a 100+ member developer community — listings, registration flows and member portals, deployed through git-driven CI.",
+  },
+  {
+    name: "SurfIn Browser",
+    stack: "Electron · React · Zustand · Vitest",
+    desc: "Desktop browser with recursive split-view panes, floating picture-in-picture panels, ad blocking and an OS-backed password manager; v1.0.0 packaged for Intel and Apple Silicon.",
   },
 ];
 
@@ -93,7 +126,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
 
 export default function ResumePage() {
   return (
-    <main className="resume-page relative z-[1] min-h-screen px-4 py-10 sm:px-6">
+    <main id="main" className="resume-page relative z-[1] min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-[850px]">
         <div className="no-print mb-6 flex flex-wrap items-center justify-between gap-3">
           <a
@@ -117,7 +150,8 @@ export default function ResumePage() {
               RISHIDEEP MANDAVILLI
             </h1>
             <p className="mt-2 font-terminal text-xs uppercase tracking-wider text-mist">
-              AI Systems · Full-Stack Web · Computer Vision · Interactive Interfaces
+              AI Products · Full-Stack Web · UI/UX Design · Interactive
+              Interfaces
             </p>
             <ul className="rs-contacts mt-4 flex flex-wrap gap-x-5 gap-y-1 font-terminal text-xs text-dim">
               {CONTACTS.map(([k, v]) => (
@@ -131,13 +165,15 @@ export default function ResumePage() {
 
           <Section label="Summary">
             <p className="rs-body text-sm leading-6 text-mist">
-              B.Tech CSE undergraduate (Class of 2029) who builds AI-era systems
-              end to end — from computer-vision prototypes and LLM-driven
-              interfaces to a deployed production website for a 100+ member
-              developer community. Six years of video production and hands-on
-              brand/design work behind the engineering; operations lead for an
-              offline buildathon. I ship working things and document how they
-              work.
+              B.Tech CSE undergraduate (Class of 2029) who works as UI/UX
+              Designer &amp; Frontend Lead at voidlabs.in and as a Full-Stack
+              Developer for a 100+ member developer-community platform, and
+              builds AI products that run on real devices — voice, speech and
+              retrieval — instead of stopping at a chat demo. Six years of video
+              production and hands-on brand and design work sit behind the
+              engineering; operations lead for an offline buildathon, and
+              selected for the RTIH Future Founders Program. I ship working
+              things and document how they work.
             </p>
           </Section>
 
@@ -146,16 +182,16 @@ export default function ResumePage() {
               <p className="text-sm font-semibold text-paper">
                 B.Tech, Computer Science &amp; Engineering
               </p>
-              <p className="font-terminal text-xs text-faint">2023 — 2029</p>
+              <p className="font-terminal text-xs text-faint">Expected 2029</p>
             </div>
             <p className="rs-body mt-1 text-sm text-mist">
               Gayatri Vidya Parishad College of Engineering (Autonomous),
-              Visakhapatnam
+              Visakhapatnam · CGPA 9.31 / 10.0
             </p>
           </Section>
 
           <Section label="Skills">
-            <dl className="grid gap-x-8 gap-y-2 sm:grid-cols-[130px_1fr]">
+            <dl className="grid gap-x-8 gap-y-2 sm:grid-cols-[150px_1fr]">
               {SKILLS.map(([k, v]) => (
                 <div key={k} className="contents sm:block">
                   <dt className="rs-label font-terminal text-xs uppercase tracking-wider text-signal sm:py-[2px]">
@@ -204,17 +240,18 @@ export default function ResumePage() {
               ))}
               <p className="rs-body text-sm text-mist">
                 Full case files with problem, approach, and outcome:{" "}
-                <span className="text-signal">rishideep-portfolio.vercel.app</span>
+                <span className="text-signal">rishideep-m.vercel.app</span>
               </p>
             </div>
           </Section>
 
-          <Section label="Hackathons & Achievements">
+          <Section label="Hackathons & Recognitions">
             <ul className="grid gap-1.5">
               {[
-                "Runner-up — Demo Day Ideathon, Team Leader (Full Stack) · 2024–25",
-                "Team waitlisted (Frontend) — Smart India Hackathon · 2025",
-                "Ideator — Urvikrithi Ideathon · 2024–25",
+                "Demo Day Ideathon — Team Leader (Full Stack Development), Runner-up · 2024–25",
+                "Smart India Hackathon (SIH) 2025 — Team Lead & Product Designer",
+                "Gitam GDG Hackathon — Team Member, 4th place · 2025",
+                "Urvikrithi Ideathon — Team Member (Ideator) · 2024–25",
               ].map((item) => (
                 <li key={item} className="rs-body flex gap-2 text-sm leading-6 text-mist">
                   <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-signal" />
@@ -224,11 +261,14 @@ export default function ResumePage() {
             </ul>
           </Section>
 
-          <Section label="Community">
+          <Section label="Entrepreneurship & Community">
             <ul className="grid gap-1.5">
               {[
-                "Technical Team Member — CrossStack: website maintenance, event development, creative execution",
-                "Member — Innovation & Incubation Center (IIC), GVP College: innovation challenges and entrepreneurship programs",
+                "RTIH Future Founders Program — selected candidate for the startup incubation and entrepreneurial leadership track",
+                "RTIH Spark Program — completed the startup foundation and venture ideation track",
+                "CrossStack Technical Team — website maintenance, event development, and creative execution for the community",
+                "Institutes & Innovation Council (IIC), GVP College — campus innovation hackathons and venture workshops",
+                "Ageion Community & Runway ML meetups — developer build hours, meetups, and founder sessions",
               ].map((item) => (
                 <li key={item} className="rs-body flex gap-2 text-sm leading-6 text-mist">
                   <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-signal" />

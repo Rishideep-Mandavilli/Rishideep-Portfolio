@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Résumé — Rishideep Mandavilli",
+  title: "Résumé",
   description:
-    "Résumé of Rishideep Mandavilli — AI systems, full-stack web, computer vision, and interactive interfaces.",
+    "Résumé of Rishideep Mandavilli — UI/UX & Frontend Lead at VoidLabs, Full-Stack Developer at CrossStack, AI products, and interactive interfaces.",
 };
 
 export default function ResumeLayout({

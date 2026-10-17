@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type Project = {
   id: string;
@@ -19,67 +19,126 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    id: "attendance-system",
-    name: "Vision Attendance System",
-    type: "Computer vision automation",
+    id: "memora",
+    name: "Memora",
+    type: "On-device AI voice assistant",
     summary:
-      "A face-recognition attendance workflow built to replace manual marking with a faster camera-assisted check-in process.",
+      "A mobile voice-notes app that records meetings and classes, transcribes them with Whisper, and turns the transcript into notes, titles, reminders and exports — in English, Telugu, or both mixed together.",
     problem:
-      "Manual attendance is slow, easy to manipulate, and difficult to audit when many people arrive at the same time.",
+      "Recording a lecture or a client call is easy; getting usable text out of it is not. Cloud transcription breaks on Indian-English-Telugu code-switching, bills per minute, and quietly uploads audio people would rather keep local.",
     approach: [
-      "Captured faces through a controlled webcam flow and matched identities with DeepFace.",
-      "Used OpenCV preprocessing to keep recognition stable across lighting and camera variance.",
-      "Structured the flow around verification, logging, and review instead of only face detection.",
+      "Route language to the right model: whisper.cpp base and medium for English, large-v3 for Telugu, selected from the recording's language mode.",
+      "Clean and translate the transcript through a local Ollama gateway — Gemma for generation, Qwen3-Embedding for retrieval — so no per-call API cost is incurred.",
+      "Fan the cleaned transcript out in parallel: title, three note formats, event and deadline extraction, topic tags, and reference links pulled from web search in study mode.",
+      "Keep state honest. Every recording carries an explicit pipeline status in SQLite, and a reminder is created from the exact quoted span of transcript that triggered it.",
     ],
     outcome:
-      "A working prototype that demonstrates how identity checks, attendance state, and audit trails can sit inside one practical tool.",
-    role: "Designed the recognition flow, engineered the prototype, and shaped the system logic.",
-    stack: ["Python", "OpenCV", "DeepFace", "CSV/records"],
-    signals: ["Identity matching", "Audit trail", "Camera workflow"],
-    links: [{ label: "github / rishideep-mandavilli", url: "https://github.com/Rishideep-Mandavilli" }],
+      "Runs as a daily tool: 36 real recordings processed through the pipeline, exports to PDF and Word, and share-out to WhatsApp or email. Telugu slang accuracy and model cold-start time are written down as open issues, not hidden.",
+    role: "Designed the product, built the Expo/React Native app and the FastAPI pipeline, and wrote the local LLM gateway and schema.",
+    stack: ["React Native", "Expo", "Python", "FastAPI", "whisper.cpp", "Ollama", "SQLite"],
+    signals: ["On-device STT", "Code-switch handling", "Parallel AI tasks"],
   },
   {
-    id: "ai-assistant",
-    name: "Realtime AI Assistant",
-    type: "LLM interface system",
+    id: "itantra",
+    name: "iTantra",
+    type: "Offline multilingual voice relay",
     summary:
-      "A responsive assistant layer for turning user prompts, tool calls, and API responses into a usable working loop.",
+      "A walkie-talkie for disasters: speech is transcribed on the phone, sent as text over WiFi Direct or Bluetooth, and spoken back by TTS on the receiving handset. No network, no cloud, no voice SDK.",
     problem:
-      "Most assistant demos stop at chat. The useful version needs memory of the task, fast feedback, clear actions, and recoverable states.",
+      "Distress communication collapses exactly when infrastructure does. Streaming audio over a peer link is bandwidth-hungry and fragile; a text relay survives weak radios, but only if both ends can turn speech into text and back without a server.",
     approach: [
-      "Designed the conversation as an operating surface with state, intent, and visible progress.",
-      "Connected API responses to action-oriented UI states instead of treating output as plain text.",
-      "Kept the interaction lightweight so the assistant feels like a tool, not a landing-page gimmick.",
+      "Run quantised Whisper-tiny (int8 ONNX) with Silero VAD on mid-range Android through sherpa-onnx, so transcription only starts when speech is actually present.",
+      "Carry Hindi and English output on Piper voices, LRU-capped at two resident models to protect memory.",
+      "Send text instead of audio, encrypted with AES-256, over WiFi Direct as primary and Bluetooth RFCOMM as fallback.",
+      "Instrument what the brief scores: word error rate against reference transcripts, and per-utterance latency from end-of-speech to TTS start, with a live HUD and CSV export.",
+      "Add SOS presets that broadcast at max volume with vibration and GPS coordinates, backed by a store-and-forward queue for peers that were out of range.",
     ],
     outcome:
-      "A reusable pattern for AI-assisted workflows where the interface explains what the system is doing as it works.",
-    role: "Built the interaction model, frontend behavior, and API integration approach.",
-    stack: ["LLM APIs", "React", "Node.js", "Prompt design"],
-    signals: ["Tool loop", "Stateful UI", "Human review"],
-    links: [{ label: "github / rishideep-mandavilli", url: "https://github.com/Rishideep-Mandavilli" }],
+      "Built through v0.7.1 with installable APKs and seven test suites covering WER, codec, protocol framing, payload ciphering and SOS relay. Known gaps stay in the README: single-hop rather than mesh, Hindi and English voices only, and efficiency figures not yet measured on hardware.",
+    role: "Built the Flutter client and the Kotlin platform plugins, and designed the wire protocol and the measurement harness.",
+    stack: ["Flutter", "Kotlin", "sherpa-onnx", "Whisper int8", "Silero VAD", "Piper TTS", "AES-256"],
+    signals: ["Fully offline", "WiFi Direct + BLE", "WER & latency measured"],
   },
   {
-    id: "portfolio-engine",
-    name: "Portfolio Engine",
-    type: "Interactive web system",
+    id: "slide-board",
+    name: "Slide-Board",
+    type: "Speech-driven presentation canvas",
     summary:
-      "This portfolio itself: a system-themed interface with particles, terminal exploration, draggable contact routing, and a bot-led profile layer.",
+      "A Figma-shaped infinite canvas that is not for design — you arrange slides, stats, notes and video, then talk, and a local speech matcher puts the right element on stage the moment you say it.",
     problem:
-      "Developer portfolios often look interchangeable. The challenge is to show personality, technical range, and proof without turning the site into visual noise.",
+      "Presentation tools assume a fixed order. Real talks move between numbers, demos and answers in whatever order the room demands, and clicking through slides while explaining something is what makes presenters look at the screen instead of the audience.",
     approach: [
-      "Built a React Three Fiber particle nameplate that responds to pointer movement.",
-      "Used terminal, graph, and node metaphors to make the portfolio feel like an inspectable system.",
-      "Kept each section tied to a job: identity, capability, work evidence, and contact.",
+      "Match speech to canvas elements locally with the browser's own speech recognition — the “0 AI calls” badge on the stage is a live status readout, not marketing copy.",
+      "Show the reasoning: when an element switches in, the stage names the words that triggered it, so a presenter can debug a miss mid-talk instead of guessing.",
+      "Import .pptx and .pdf into editable native layers through a Python pipeline — python-pptx, PyMuPDF, and headless LibreOffice rasterisation — with pixel-faithful previews.",
+      "Export the story afterwards: chronological, numbered, with per-stop dwell time and the filler words leaned on, which no design tool produces.",
     ],
     outcome:
-      "A distinctive foundation for a portfolio that can grow into a case-study driven experience instead of a static resume.",
-    role: "Designed and engineered the full interface, motion system, and content structure.",
-    stack: ["Next.js", "React", "Three.js", "Framer Motion"],
-    signals: ["R3F hero", "Motion system", "Responsive rebuild"],
-    links: [
-      { label: "live system ↗", url: "https://rishideep-portfolio.vercel.app/" },
-      { label: "github / rishideep-mandavilli", url: "https://github.com/Rishideep-Mandavilli" },
+      "20,336 lines of TypeScript across 61 commits, a twelve-script self-running test chain including a latency benchmark and matcher self-tests, and around forty committed end-to-end screenshots. Deliberately localhost-only — the hosted deployment was retired once it could not meet the import guarantee.",
+    role: "Designed and built the whole thing: canvas engine, speech matcher, import pipeline, and test harness.",
+    stack: ["Next.js", "React 19", "TypeScript", "Radix UI", "Zustand", "Python", "Prisma"],
+    signals: ["Local speech matching", "Inspectable triggers", "PPTX round-trip"],
+  },
+  {
+    id: "chunks",
+    name: "Chunks",
+    type: "Native macOS screen companion",
+    summary:
+      "Hold a key, ask about whatever is on screen, get the answer spoken back. Circle a region to narrow the question, or ask where a control is and watch the cursor fly to it.",
+    problem:
+      "Screen-aware assistants usually arrive as an agent loop with cloud accounts, per-token bills, and a memory store you cannot read. The interesting part — seeing the screen and answering in voice — does not need any of that.",
+    approach: [
+      "Stay native: Swift 6 with ScreenCaptureKit for capture, macOS on-device speech transcription for input, and Kokoro for local speech output, so nothing about your voice is uploaded.",
+      "Keep the vision call cheap and private — screenshots go to the model with store disabled, and a full 3420×2214 display measures out at roughly a thousand image tokens on a free tier.",
+      "Make memory a plain-text file the user owns: capped at 2KB, never silently truncated, scanned for credentials before writing, and edited only by proposal rather than by the model directly.",
+      "Gate the dangerous parts behind explicit consent and policy layers before touching the Accessibility API to move the cursor.",
+      "Support four model backends through one provider registry — OpenAI-compatible, Anthropic, Gemini and Ollama — so the assistant is not married to a vendor.",
     ],
+    outcome:
+      "15,890 lines of Swift with 21 test files and a running app bundle. Built as a native rebuild of an existing open-source concept, on MIT-licensed source with every adapted file itemised in a notices document.",
+    role: "Scoped the rebuild, wrote the Swift client plus the memory and consent layers, and kept the cost and privacy posture documented.",
+    stack: ["Swift 6", "AppKit", "ScreenCaptureKit", "Kokoro TTS", "Gemini API", "SwiftPM"],
+    signals: ["On-device voice I/O", "User-owned memory", "$0 run cost"],
+  },
+  {
+    id: "crossstack",
+    name: "CrossStack",
+    type: "Community & event platform",
+    summary:
+      "The live marketing and event-management site for a 100+ member developer community — event listings, registration flows and member portals, shipped and maintained in production.",
+    problem:
+      "A regional developer community runs on scattered links: events on one platform, signups on a form, announcements in a chat group. Nothing converts a visitor into an attendee, and nothing survives the next organizer leaving.",
+    approach: [
+      "Build modular, responsive components in React and Next.js for event listings, registration and conversion-focused sections, so non-developers can update a page without touching layout.",
+      "Wire deployment into Git and GitHub with continuous delivery to Vercel and Netlify, making release a routine instead of an event.",
+      "Iterate against design feedback from community members and hold cross-browser and mobile behaviour as an acceptance condition, not a follow-up.",
+    ],
+    outcome:
+      "A public, live product carrying the community's events — and the same platform work behind running an offline buildathon's digital judging system end to end.",
+    role: "Full-stack developer and technical team member; own the interface, the deployment pipeline, and ongoing maintenance.",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind", "Vercel", "Netlify"],
+    signals: ["Live in production", "100+ members", "CI on Git"],
+    links: [{ label: "crossstack.in ↗", url: "https://www.crossstack.in" }],
+  },
+  {
+    id: "surfin",
+    name: "SurfIn",
+    type: "Desktop browser build",
+    summary:
+      "A Chromium-based desktop browser with split-view tiling, floating picture-in-picture panels, a password manager and an ad blocker — built on Electron over real browser tabs rather than a webview skin.",
+    problem:
+      "Research work means holding twelve sources open and comparing them. Existing browsers either force tab-switching or push split-view behind a paid extension, and few keep credentials local without a cloud account.",
+    approach: [
+      "Compose each tab as a real WebContentsView layered above the React chrome, so panes are actual Chromium instances rather than iframes.",
+      "Model split view as a recursive binary tree of pane and split nodes with twelve presets, draggable 60Hz dividers, nested splits, and tabs that move between panes.",
+      "Store passwords with the OS-backed safeStorage layer, captured by a content script that also handles single-page submit flows, with a never-save-per-origin rule.",
+      "Ship the boring reliability work: session restore, crash recovery, download pause and resume, a 10,000-entry history ring, and an internal-page suite behind a custom scheme.",
+    ],
+    outcome:
+      "Version 1.0.0 packaged for macOS on both Intel and Apple Silicon with hardened runtime and auto-update configuration, plus unit tests over the layout tree, omnibox and closed-tab stack.",
+    role: "Designed the architecture and wrote the client end to end, from the split-tree layout engine to the packaging config.",
+    stack: ["Electron", "React", "TypeScript", "Vite", "Zustand", "Vitest"],
+    signals: ["Real multi-pane tabs", "Local credential store", "Packaged v1.0.0"],
   },
 ];
 
@@ -130,14 +189,25 @@ function ProjectsTerminal() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const reducedMotion = useReducedMotion();
 
   const activeProject =
     PROJECTS.find((project) => project.id === activeId) || PROJECTS[0];
 
+  // Dossier is addressable: #file-<id> opens straight onto that case.
+  const selectProject = useCallback((id: string) => {
+    setActiveId(id);
+    window.history.replaceState(null, "", `#file-${id}`);
+  }, []);
+
   useEffect(() => {
+    const hashed = window.location.hash.replace("#file-", "");
+    if (PROJECTS.some((project) => project.id === hashed)) setActiveId(hashed);
+
     setHistory([
       "case engine online",
-      "loaded 3 project dossiers",
+      "loaded 6 project dossiers",
       "type help or select a file",
     ]);
   }, []);
@@ -145,6 +215,21 @@ function ProjectsTerminal() {
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [history]);
+
+  const onTabKeyDown = (event: React.KeyboardEvent, index: number) => {
+    const last = PROJECTS.length - 1;
+    let next: number | null = null;
+
+    if (event.key === "ArrowRight") next = index === last ? 0 : index + 1;
+    else if (event.key === "ArrowLeft") next = index === 0 ? last : index - 1;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = last;
+    else return;
+
+    event.preventDefault();
+    selectProject(PROJECTS[next].id);
+    tabRefs.current[next]?.focus();
+  };
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -154,7 +239,7 @@ function ProjectsTerminal() {
     const [name, arg] = trimmed.split(" ");
 
     if (name === "open" && arg && PROJECTS.some((project) => project.id === arg)) {
-      setActiveId(arg);
+      selectProject(arg);
     }
 
     const output = commandOutput(trimmed, activeProject);
@@ -178,20 +263,33 @@ function ProjectsTerminal() {
           </div>
           <p className="max-w-sm text-sm leading-6 text-dim">
             Problem, thinking, stack, result — the full dossier on one sheet.
-            The terminal stays as an exploration layer for the curious.
+            Most of this is private source; ask and I will walk you through the
+            repo. The terminal stays as an exploration layer for the curious.
           </p>
         </div>
 
-        <div role="tablist" aria-label="Projects" className="flex flex-wrap">
+        <div
+          role="tablist"
+          aria-label="Projects"
+          aria-orientation="horizontal"
+          className="tabstrip flex snap-x snap-mandatory gap-2 overflow-x-auto sm:gap-0 sm:overflow-visible"
+        >
           {PROJECTS.map((project, index) => {
             const active = project.id === activeId;
             return (
               <button
                 key={project.id}
+                ref={(node) => {
+                  tabRefs.current[index] = node;
+                }}
+                id={`tab-${project.id}`}
                 role="tab"
                 aria-selected={active}
-                onClick={() => setActiveId(project.id)}
-                className={`min-w-0 flex-1 basis-full border px-5 py-4 text-left transition-colors sm:basis-0 sm:border-l-0 sm:first:border-l ${
+                aria-controls={`panel-${project.id}`}
+                tabIndex={active ? 0 : -1}
+                onClick={() => selectProject(project.id)}
+                onKeyDown={(event) => onTabKeyDown(event, index)}
+                className={`min-w-0 shrink-0 basis-[72vw] snap-start border px-5 py-4 text-left transition-colors sm:basis-0 sm:flex-1 sm:shrink sm:border-l-0 sm:first:border-l ${
                   active
                     ? "border-signal bg-panel text-paper"
                     : "border-line bg-transparent text-faint hover:text-mist"
@@ -210,7 +308,11 @@ function ProjectsTerminal() {
 
         <motion.article
           key={activeProject.id}
-          initial={{ opacity: 0, y: 16 }}
+          id={`panel-${activeProject.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${activeProject.id}`}
+          tabIndex={0}
+          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="noise-surface min-w-0 border border-t-0 border-line bg-panel"
