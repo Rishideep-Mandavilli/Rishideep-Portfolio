@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
+import { SignalField } from "./SignalField";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -256,16 +257,8 @@ export function Contact() {
         onPointerUp={onUp}
         onPointerLeave={() => { if (dragging) onUp(); }}
       >
-        {/* Ambient haze */}
-        <div className="haze haze-a" aria-hidden />
-        <div className="haze haze-b" aria-hidden />
-
-        {/* Grid */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-          opacity: 0.9,
-        }} />
+        {/* Kinetic name field — the canvas backdrop */}
+        <SignalField />
 
         {/* Decorative corner labels — technical feel */}
         <div className="absolute top-3 left-4 pointer-events-none">

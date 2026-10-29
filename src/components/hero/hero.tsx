@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { MaskReveal } from "./MaskReveal";
 import { StaticNameplate } from "./StaticNameplate";
+import { canRenderWebGL } from "./webgl";
 import { TimeGreeting } from "@/components/ui/TimeGreeting";
 
 // Loaded only when a pointer can actually disturb the field, so phones never
@@ -22,7 +23,7 @@ function Hero({ skillsRef, projectsRef, contactRef }: HeroProps) {
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setFieldEnabled(fine && !reduced);
+    setFieldEnabled(fine && !reduced && canRenderWebGL());
   }, []);
 
   const scrollTo = useCallback(
@@ -101,7 +102,7 @@ function Hero({ skillsRef, projectsRef, contactRef }: HeroProps) {
               <span className="font-terminal text-[11px] uppercase tracking-wider text-faint">
                 {fieldEnabled
                   ? "move cursor to disturb the name field"
-                  : "name field · reduced motion respected"}
+                  : "static render · pointer field unavailable"}
               </span>
               <MaskReveal compact src="/Rishideep-Mandavilli.jpg" />
             </div>

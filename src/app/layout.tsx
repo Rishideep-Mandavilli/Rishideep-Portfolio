@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     description:
       "Voice, speech and retrieval systems that run on real devices, plus the full-stack surfaces and design systems that make them usable.",
     locale: "en_IN",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${SITE_NAME} — ${TAGLINE}` }],
   },
   twitter: {
     card: "summary_large_image",
@@ -56,6 +57,7 @@ export const metadata: Metadata = {
     description:
       "Voice, speech and retrieval systems that run on real devices, plus the full-stack surfaces and design systems that make them usable.",
     creator: "@RishideepM15",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${SITE_NAME} — ${TAGLINE}` }],
   },
   robots: { index: true, follow: true },
   icons: {

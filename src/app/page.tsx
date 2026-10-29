@@ -102,8 +102,10 @@ function SectionReveal({ children }: { children: React.ReactNode }) {
     offset: ["start end", "start center"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [30, 0]);
+  // The floor matters: if the measurement goes stale, a section reads slightly
+  // dim rather than blank.
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.4, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [24, 0]);
 
   if (reducedMotion) return <div ref={ref}>{children}</div>;
 
