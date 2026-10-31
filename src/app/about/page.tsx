@@ -249,7 +249,7 @@ export default function AboutPage() {
               <div className="mt-5 flex flex-wrap gap-2">
                 {[
                   ["GitHub", "https://github.com/Rishideep-Mandavilli"],
-                  ["LinkedIn", "https://linkedin.com/in/rishideep-mandavilli"],
+                  ["LinkedIn", "https://www.linkedin.com/in/rishideepmandavilli/"],
                   ["YouTube", "https://www.youtube.com/@Teja_Visual_Arts"],
                   ["X", "https://x.com/RishideepM15"],
                   ["Instagram", "https://instagram.com/rishideep.mandavilli"],

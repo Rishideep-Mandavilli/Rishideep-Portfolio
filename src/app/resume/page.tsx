@@ -5,7 +5,7 @@ const CONTACTS = [
   ["phone", "+91 91339 51588"],
   ["email", "rishideep.mandavilli@gmail.com"],
   ["github", "github.com/Rishideep-Mandavilli"],
-  ["linkedin", "linkedin.com/in/rishideep-mandavilli"],
+  ["linkedin", "linkedin.com/in/rishideepmandavilli"],
   ["youtube", "youtube.com/@Teja_Visual_Arts"],
   ["web", "rishideep-m.vercel.app"],
 ];
