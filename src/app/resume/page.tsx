@@ -43,10 +43,10 @@ const EXPERIENCE = [
   },
   {
     role: "Full Stack Developer & Technical Team Member",
-    org: "CrossStack · Visakhapatnam developer community (100+ active members)",
+    org: "CrossStack · Visakhapatnam developer community",
     period: "2025 — Present",
     points: [
-      "Engineered and launched crossstack.in — a production marketing and event-management platform for a 100+ member regional developer community.",
+      "Engineered and launched crossstack.in — a production marketing and event-management platform for a regional developer community.",
       "Built modular, responsive UI components with React, Next.js, HTML, CSS, and JavaScript for event listings, registration workflows, and member portals.",
       "Manage version control (Git/GitHub) and continuous deployment pipelines on Vercel and Netlify.",
     ],
@@ -102,14 +102,14 @@ const PROJECTS = [
     desc: "macOS menu-bar companion that reads the screen on a held key and answers by voice, using on-device speech in and out and a user-owned plain-text memory file.",
   },
   {
-    name: "CrossStack Platform",
-    stack: "Next.js · TypeScript · Vercel",
-    desc: "Live marketing and event-management platform for a 100+ member developer community — listings, registration flows and member portals, deployed through git-driven CI.",
-  },
-  {
     name: "SurfIn Browser",
     stack: "Electron · React · Zustand · Vitest",
     desc: "Desktop browser with recursive split-view panes, floating picture-in-picture panels, ad blocking and an OS-backed password manager; v1.0.0 packaged for Intel and Apple Silicon.",
+  },
+  {
+    name: "CrossStack Platform",
+    stack: "Next.js · TypeScript · Vercel",
+    desc: "Live marketing and event-management platform for the CrossStack developer community — listings, registration flows and member portals, deployed through git-driven CI.",
   },
 ];
 
@@ -146,26 +146,45 @@ export default function ResumePage() {
         <article className="resume-sheet border border-line bg-panel p-7 shadow-[0_24px_100px_rgba(0,0,0,0.48)] sm:p-10">
           {/* header */}
           <header className="border-b border-line pb-5">
-            <h1 className="rs-title text-3xl font-bold tracking-tight text-paper sm:text-4xl">
-              RISHIDEEP MANDAVILLI
-            </h1>
-            <p className="mt-2 font-terminal text-xs uppercase tracking-wider text-mist">
-              AI Products · Full-Stack Web · UI/UX Design · Interactive
-              Interfaces
+            <div className="flex flex-wrap items-start justify-between gap-6">
+              <div className="min-w-[260px] flex-1">
+                <h1 className="rs-title text-3xl font-bold tracking-tight text-paper sm:text-4xl">
+                  RISHIDEEP MANDAVILLI
+                </h1>
+                <p className="mt-2 font-terminal text-xs uppercase tracking-wider text-mist">
+                  UI/UX Design <span className="text-faint">·</span> Frontend
+                  Lead <span className="text-faint">·</span> Full-Stack{" "}
+                  <span className="text-faint">·</span> Brand &amp; Motion
+                </p>
+                <ul className="rs-contacts mt-4 flex flex-wrap gap-x-5 gap-y-1 font-terminal text-xs text-dim">
+                  {CONTACTS.map(([k, v]) => (
+                    <li key={k}>
+                      <span className="text-faint">{k}: </span>
+                      {v}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <figure className="relative shrink-0">
+                <span className="absolute -left-1.5 -top-1.5 h-3 w-3 border border-signal bg-panel" aria-hidden />
+                <img
+                  src="/Rishideep-Mandavilli.jpg"
+                  alt="Portrait of Rishideep Mandavilli"
+                  className="h-28 w-28 border border-line object-cover grayscale sm:h-32 sm:w-32"
+                />
+                <figcaption className="mt-1 text-center font-terminal text-[10px] uppercase tracking-wider text-faint">
+                  fig. 01 — candidate
+                </figcaption>
+              </figure>
+            </div>
+            <p className="mt-4 inline-block border border-signal/60 bg-signal/10 px-2.5 py-1 font-terminal text-[10px] font-semibold uppercase tracking-[0.18em] text-signal">
+              open to internships · 2026–27 · india
             </p>
-            <ul className="rs-contacts mt-4 flex flex-wrap gap-x-5 gap-y-1 font-terminal text-xs text-dim">
-              {CONTACTS.map(([k, v]) => (
-                <li key={k}>
-                  <span className="text-faint">{k}: </span>
-                  {v}
-                </li>
-              ))}
-            </ul>
           </header>
 
           <Section label="Summary">
             <p className="rs-body text-sm leading-6 text-mist">
-              B.Tech CSE undergraduate (Class of 2029) who works as UI/UX
+              B.Tech CSE undergraduate (Class of 2029, CGPA 9.31/10) who works as UI/UX
               Designer &amp; Frontend Lead at voidlabs.in and as a Full-Stack
               Developer for a 100+ member developer-community platform, and
               builds AI products that run on real devices — voice, speech and
@@ -249,7 +268,7 @@ export default function ResumePage() {
             <ul className="grid gap-1.5">
               {[
                 "Demo Day Ideathon — Team Leader (Full Stack Development), Runner-up · 2024–25",
-                "Smart India Hackathon (SIH) 2025 — Team Lead & Product Designer",
+                "Smart India Hackathon (SIH) 2025 — Team Lead & Product Designer · Finalist",
                 "Gitam GDG Hackathon — Team Member, 4th place · 2025",
                 "Urvikrithi Ideathon — Team Member (Ideator) · 2024–25",
               ].map((item) => (
