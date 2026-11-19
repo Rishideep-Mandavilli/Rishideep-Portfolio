@@ -7,7 +7,7 @@ const CONTACTS = [
   ["github", "github.com/Rishideep-Mandavilli"],
   ["linkedin", "linkedin.com/in/rishideepmandavilli"],
   ["youtube", "youtube.com/@Teja_Visual_Arts"],
-  ["web", "rishideep-m.vercel.app"],
+  ["web", "rishideep.tech"],
 ];
 
 const SKILLS: [string, string][] = [
@@ -240,7 +240,7 @@ export default function ResumePage() {
               ))}
               <p className="rs-body text-sm text-mist">
                 Full case files with problem, approach, and outcome:{" "}
-                <span className="text-signal">rishideep-m.vercel.app</span>
+                <span className="text-signal">rishideep.tech</span>
               </p>
             </div>
           </Section>
