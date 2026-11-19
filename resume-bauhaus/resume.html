@@ -80,13 +80,21 @@
   .masthead .r .dot { color: var(--red); }
 
   /* nameplate */
-  .plate { display: flex; justify-content: space-between; gap: 4mm; margin-bottom: 2.6mm; }
+  .plate { display: flex; justify-content: space-between; align-items: flex-start; gap: 3.5mm; margin-bottom: 4.6mm; }
   .nameplate { line-height: 0.86; letter-spacing: 0.01em; }
-  .nameplate .a { font-family: var(--syne); font-weight: 800; font-size: 38pt; display: block; }
-  .nameplate .b { font-family: var(--syne); font-weight: 800; font-size: 24pt; color: var(--blue); display: block; margin-top: 1mm; }
+  .nameplate .a { font-family: var(--syne); font-weight: 800; font-size: 32.5pt; display: block; }
+  .nameplate .b { font-family: var(--syne); font-weight: 800; font-size: 20.5pt; color: var(--blue); display: block; margin-top: 0.8mm; }
 
-  .meta { width: 62mm; display: flex; flex-direction: column; justify-content: flex-end; }
-  .roles { font-family: var(--grot); font-weight: 700; font-size: 8.2pt; line-height: 1.45; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2.4mm; }
+  .photo { width: 28mm; height: 28mm; flex: none; border: 0.45mm solid var(--ink); background: var(--ink); position: relative; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.06); }
+  .photo::after {
+    content: "RJM · 26"; position: absolute; left: 0; bottom: 1.4mm;
+    font-family: var(--mono); font-weight: 700; font-size: 5.4pt; letter-spacing: 0.14em;
+    background: var(--blue); color: var(--paper); padding: 0.5mm 1.2mm;
+  }
+
+  .meta { width: 56mm; display: flex; flex-direction: column; justify-content: flex-end; }
+  .roles { font-family: var(--grot); font-weight: 700; font-size: 7.8pt; line-height: 1.45; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2.2mm; }
   .roles em { font-style: normal; color: var(--taupe); font-weight: 500; }
   .avail {
     background: var(--yellow); border: 0.45mm solid var(--ink);
@@ -165,12 +173,15 @@
   .halves { display: grid; grid-template-columns: 1fr 1fr; gap: 3.6mm; }
 
   /* projects */
-  .proj { border-top: 0.45mm solid var(--ink); padding: 2mm 0; }
+  .proj { border-top: 0.45mm solid var(--ink); padding: 1.1mm 0; }
   .proj:first-of-type { border-top: none; padding-top: 0.2mm; }
+  .proj + .also { margin-top: 0.8mm; }
+  .also { font-family: var(--mono); font-size: 6.2pt; font-weight: 700; color: var(--char); border: 0.45mm dashed var(--ink); padding: 1mm 1.8mm; }
+  .also b { color: var(--blue); }
   .proj .pr { display: flex; justify-content: space-between; align-items: baseline; }
   .proj .nm { font-family: var(--syne); font-weight: 800; font-size: 10.5pt; }
   .proj .sk { font-family: var(--mono); font-size: 5.6pt; font-weight: 700; color: var(--taupe); letter-spacing: 0.04em; }
-  .proj .ds { font-size: 7.7pt; font-weight: 500; line-height: 1.45; color: var(--char); margin-top: 0.7mm; }
+  .proj .ds { font-size: 7.5pt; font-weight: 500; line-height: 1.4; color: var(--char); margin-top: 0.5mm; }
   .proj .ds b { color: var(--ink); }
 
   /* education */
@@ -183,12 +194,12 @@
   .chip.r { background: var(--red); color: var(--paper); }
 
   /* initiatives & hackathons lists */
-  .initi .row-i { border-top: 0.45mm solid var(--ink); padding: 1.6mm 0; }
+  .initi .row-i { border-top: 0.45mm solid var(--ink); padding: 1.25mm 0; }
   .initi .row-i:first-of-type { border-top: none; }
   .initi .inm { font-weight: 700; font-size: 8.2pt; }
   .initi .ids { font-size: 7.4pt; font-weight: 500; color: var(--char); line-height: 1.4; margin-top: 0.4mm; }
 
-  .hacks .hackrow { border-top: 0.45mm solid var(--ink); padding: 1.6mm 0; display: flex; justify-content: space-between; align-items: baseline; }
+  .hacks .hackrow { border-top: 0.45mm solid var(--ink); padding: 1.4mm 0; display: flex; justify-content: space-between; align-items: baseline; }
   .hacks .hackrow:first-of-type { border-top: none; }
   .hacks .hn { font-weight: 700; font-size: 8.2pt; }
   .hacks .hr2 { font-size: 7.4pt; font-weight: 500; color: var(--taupe); margin-top: 0.3mm; }
@@ -200,7 +211,7 @@
 
   /* toolkit */
   .kit { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.4mm; }
-  .kit .col { border: 0.45mm solid var(--ink); background: var(--card); padding: 2mm 2.4mm; }
+  .kit .col { border: 0.45mm solid var(--ink); background: var(--card); padding: 1.8mm 2.2mm; }
   .kit .kl { font-family: var(--mono); font-size: 5.8pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--taupe); border-bottom: 0.45mm solid var(--ink); padding-bottom: 1mm; margin-bottom: 1.4mm; }
   .kit .kw { display: flex; flex-wrap: wrap; gap: 0.9mm; }
   .kit .tag { font-size: 7pt; font-weight: 700; border: 0.45mm solid var(--ink); padding: 0.4mm 1.2mm; background: var(--paper); }
@@ -223,6 +234,7 @@
       <span class="a">RISHIDEEP</span>
       <span class="b">MANDAVILLI</span>
     </div>
+    <div class="photo"><img src="rm.jpg" alt="Rishideep Mandavilli"></div>
     <div class="meta">
       <div class="roles">UI/UX Designer <em>·</em> Frontend Lead <em>·</em> Full-Stack Developer <em>·</em> Brand &amp; Motion</div>
       <div class="avail">Open to internships · 2026–27 · India</div>
@@ -337,8 +349,8 @@
     <div class="r">02 / 02</div>
   </div>
 
-  <div style="margin-bottom:3.6mm;">
-    <div class="secthead"><div><span class="num red">03</span>&nbsp;<h2 style="display:inline;">PROJECTS</h2></div><span class="tail">Selected builds · 2024 — 2026</span></div>
+  <div style="margin-bottom:3.2mm;">
+    <div class="secthead"><div><span class="num red">03</span>&nbsp;<h2 style="display:inline;">PROJECTS</h2></div><span class="tail">Selected builds · 2024 — 2026 · full list at rishideep.tech</span></div>
     <div class="proj">
       <div class="pr"><span class="nm">MEMORA</span><span class="sk">React Native · FastAPI · Whisper · Ollama</span></div>
       <div class="ds">Voice-notes app that transcribes meetings and classes in <b>English, Telugu, or code-switched speech</b>, then produces notes, titles, reminders, and PDF/Word exports through a local model gateway.</div>
@@ -351,9 +363,18 @@
       <div class="pr"><span class="nm">SLIDE-BOARD</span><span class="sk">Next.js · React 19 · Python · Prisma</span></div>
       <div class="ds">Infinite presentation canvas where a <b>local speech matcher puts the right element on stage as you talk</b> — .pptx import to editable layers, plus a post-talk story export with dwell times.</div>
     </div>
+    <div class="proj">
+      <div class="pr"><span class="nm">CHUNKS</span><span class="sk">Swift 6 · ScreenCaptureKit · Kokoro</span></div>
+      <div class="ds">macOS menu-bar companion that <b>reads the screen on a held key and answers by voice</b>, with on-device speech in and out and a user-owned plain-text memory file.</div>
+    </div>
+    <div class="proj">
+      <div class="pr"><span class="nm">SURFIN BROWSER</span><span class="sk">Electron · React · Zustand · Vitest</span></div>
+      <div class="ds">Desktop browser with <b>recursive split-view panes</b>, floating picture-in-picture panels, ad blocking, and an OS-backed password manager — <b>v1.0.0 packaged</b> for Intel and Apple Silicon.</div>
+    </div>
+    <div class="also">ALSO SHIPPED — <b>crossstack.in</b>, the community platform detailed in Experience 02 · full case studies at <b>rishideep.tech</b></div>
   </div>
 
-  <div style="margin-bottom:3.6mm;">
+  <div style="margin-bottom:3mm;">
     <div class="secthead"><div><span class="num yel">04</span>&nbsp;<h2 style="display:inline;">EDUCATION</h2></div><span class="tail">Expected 2029</span></div>
     <div class="edu">
       <div class="deg">Bachelor of Technology — Computer Science &amp; Engineering</div>
@@ -367,7 +388,7 @@
     </div>
   </div>
 
-  <div class="halves" style="margin-bottom:3.6mm;">
+  <div class="halves" style="margin-bottom:3mm;">
     <div>
       <div class="secthead"><div><span class="num">05</span>&nbsp;<h2 style="display:inline;">INITIATIVES</h2></div></div>
       <div class="initi">
